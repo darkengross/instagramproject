@@ -16,18 +16,6 @@ count = 10
 
 fetched_posts = []
 
-def fetch_posts(startDate, endDate, count):
-    global fetched_posts  # global variable changed
-    url = f"https://api.crowdtangle.com/posts?token={token}&startDate={startDate}&endDate={endDate}&sortBy=date&count={count}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        fetched_posts = response.json()  
-        store_in_database(fetched_posts)
-        print("API data fetched successfully at 12:00 AM.")
-    else:
-        print("Failed to fetch API data.")
-
-
 def fetch_now(startDate, endDate, count):
     global fetched_posts  # global variable changed
     url = f"https://api.crowdtangle.com/posts?token={token}&startDate={startDate}&endDate={endDate}&sortBy=date&count={count}"
@@ -38,7 +26,7 @@ def fetch_now(startDate, endDate, count):
         print("API data fetched successfully")
         rows = read_from_database()
         for row in rows:
-            print(row)
+            print(row,end="\n")
     else:
         print("Failed to fetch API data")
 
@@ -66,13 +54,8 @@ def read_from_database():
     return rows
 
 
-# schedule.every().day.at("13:34").do(fetch_posts, startDate=startDate, endDate=endDate, count=count)
 
 
 
 fetch_now(startDate=startDate, endDate=endDate, count=count)
 
-# while True:
-#     schedule.run_pending()
-#     time.sleep(10) 
-#     print(fetched_posts)
