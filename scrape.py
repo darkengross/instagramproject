@@ -66,13 +66,12 @@ def read_from_database():
     return rows
 
 
-# schedule.every().day.at("13:34").do(fetch_posts, startDate=startDate, endDate=endDate, count=count)
+schedule.every().day.at("00:00").do(fetch_posts, startDate=startDate, endDate=endDate, count=count)
 
 
 
-fetch_now(startDate=startDate, endDate=endDate, count=count)
 
-# while True:
-#     schedule.run_pending()
-#     time.sleep(10) 
-#     print(fetched_posts)
+while True:
+    schedule.run_pending()
+    time.sleep(10) 
+    print(fetched_posts)
